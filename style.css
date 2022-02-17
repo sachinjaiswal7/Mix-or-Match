@@ -1,0 +1,206 @@
+@font-face {
+    font-family: "creepy";
+    src: url("Assets/Fonts/Creepy.woff") format("woff"),
+    url("Assets/Fonts/Creepy.woff2") format("woff2")
+}
+@import url('http://fonts.cdnfonts.com/css/horror-type');
+@font-face{
+    font-family: "lunacy";
+    src: url("/Assets/Fonts/Lunacy.woff") format("woff"),
+    url("/Assets/Fonts/Lunacy.woff2") format("woff2"),
+}
+html{
+    cursor: url("/Assets/Cursors/Ghost.cur"),auto;
+}
+body{
+    box-sizing: border-box;
+    background: radial-gradient(#9D5900,#3D2200);
+    min-height: 100vh;
+}
+.game-title{
+    text-align: center;
+    font-size: 6.5rem;
+    margin-top: 3rem;
+    color: orange;
+    font-family: "creepy";
+}
+
+.game-info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 40vw;
+    margin: auto;
+    margin-top: 4rem;
+    font-size: 2rem;
+    color: whitesmoke;
+    font-family:  sans-serif;
+}
+
+.game-cards{
+    display: grid;
+    grid-template-columns: repeat(4,auto);
+    gap: 0.6rem;
+    margin: 3rem;
+    justify-content: center;
+}
+.card{
+    background-color: black;
+    height: 10.5rem;
+    width: 7.6rem;
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 500px;
+    border-radius: 0.25rem;
+    transition: transform 400ms ease-in-out;
+}
+/* code for back and front side of the cards */
+.card-face{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border : 1px solid #9D5900;
+    backface-visibility: hidden;
+    transition: background-color 500ms ease-in-out;
+
+   
+
+}
+/* code for setting and sizing the corner webs of cards */
+.web{
+    position: absolute;
+    height: 3rem;
+    width: 3rem;
+    transition: width 100ms ease-in-out ,height 100ms ease-in-out;
+    
+}
+.top-right{
+    position: absolute;
+  top: 0;
+  right: 0;    
+}
+.top-left{
+    transform: rotateZ(270deg);
+    top: 0;
+    left: 0;
+}
+.bottom-left{
+    transform: rotateZ(180deg);
+    bottom: 0;
+    left: 0;
+}
+.bottom-right{
+     bottom: 0;
+     right: 0;
+     transform: rotateZ(90deg);
+}
+/* code for center spider  */
+.center{
+    height: 7rem;
+    width: 5rem;
+    position: absolute;
+    top: 0;
+    transform: translateY(-10px);
+    transition: transform 100ms  ease-in-out;
+
+}
+/* just setting some important property */
+.card-front{
+    transform: rotateY(180deg);
+}
+.card-back{
+    border-radius: 0.5rem;
+  
+}
+.card-value{
+    transform: scale(0.9);
+    transition: transform 100ms ease-in-out;
+    height: 5.5rem;
+    width: 6rem;
+}
+.card-back:hover .center{
+ transform: translateY(1px);
+}
+.card-back:hover .web{
+    height: 3.5rem;
+    width: 3.5rem;
+}
+
+
+/* code for rotate animation */
+.card.visible {
+    transform: rotateY(-180deg);
+}
+.card.visible .card-front{
+   
+    background-color: bisque;
+}
+.card.visible .card-front .card-value:hover{
+    transform: scale(1);
+}
+/* code for animation when the cards match */
+.card.visible.matched .card-value{
+ animation: dance 1s linear infinite 400ms;
+}
+@keyframes dance{
+    0%,100%{
+        transform: rotate(0);
+    }
+    25%{
+        transform: rotateZ(30deg);
+    }
+    75%{
+        transform: rotateZ(-30deg);
+    }
+}
+.card:hover{
+    cursor:url("/Assets/Cursors/GhostHover.cur"),auto;
+}
+
+.overlay{
+    position:fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color:#3D2200;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0);
+    transition: transform 200ms ease-in-out;
+
+}
+.overlay>div>h1{
+    font-family: "creepy";
+    font-size: 6.5rem;
+    color: #9D5900;
+    
+}
+.overlay>div{
+    text-align: center;
+}
+.overlay>div>button{
+background-color: #9D5900;
+color: white;
+padding: 1rem;
+border: none;
+border-radius: 2rem;
+}
+.overlay.gameover.active{
+    transform: scale(1);
+}
+.overlay.victory.active{
+    transform: scale(1);
+}
+
+@media(max-width : 540px){
+     html{
+         font-size: 10px;
+     }
+}
